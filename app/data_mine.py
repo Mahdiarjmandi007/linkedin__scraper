@@ -15,7 +15,7 @@ class DT_MINE():
     def __init__(self):
         self.result=[]
         self.state="run"
-        service = FirefoxService(executable_path="geckodriver.exe",port=5555)
+        service = FirefoxService(executable_path=r"C:\Users\Afra\Desktop\project\term-2-project\app\geckodriver.exe",port=5555)
         options = FirefoxOptions()
         self.driver = webdriver.Firefox(service=service, options=options)
         self.wait = WebDriverWait(self.driver, 30)
@@ -25,7 +25,7 @@ class DT_MINE():
         time.sleep(2)
 
         try:
-            with open("linkedin_cookies.pkl", "rb") as f:
+            with open(r"C:\Users\Afra\Desktop\project\term-2-project\app\linkedin_cookies.pkl", "rb") as f:
                 cookies = pickle.load(f)
 
             for cookie in cookies:
@@ -74,17 +74,27 @@ class DT_MINE():
         #scroll_container = self.wait.until(EC.presence_of_element_located((By.CLASS_NAME, "div.jobs-search-results-list")))
         time.sleep(5)
         number_job=1
-        while len(list_of_jobs)<20:
+        while len(list_of_jobs)<50:
+
             
             jobs = self.wait.until(EC.presence_of_all_elements_located(
-            (By.XPATH, "//li[contains(@class, 'occludable-update') and contains(@class, 'scaffold-layout__list-item')]")
-        ))
+                (By.XPATH, "//li[contains(@class, 'occludable-update') and contains(@class, 'scaffold-layout__list-item')]")
+            ))
             try :
                 job=jobs[index]
             except IndexError:
-                print(f"errored jobs done or something happening")
-                
-                break
+                print(f"jobs this page is done!!!")
+                self.driver.execute_script("window.scrollTo(0, document.body.scrollHeight);")
+                try:
+                    
+                    next_button = self.driver.find_element(By.CSS_SELECTOR, 'button.jobs-search-pagination__button--next')
+                    next_button.click()
+                    index=0
+                    time.sleep(2)
+                except Exception as e:
+                    print("❌ Couldn't click next page button:", e)
+                    break
+                    
 
 
             try:
@@ -114,7 +124,8 @@ class DT_MINE():
             except Exception as e:
                 print(e)
                 continue
-
+            
+                
         with open("jobs.csv", mode="w", encoding="utf-8-sig", newline='') as file:
             writer = csv.writer(file)
             writer.writerow(["Title", "Name of Company", "Location", "Type", "Link"])
@@ -123,38 +134,7 @@ class DT_MINE():
 
         self.driver.quit()
         
-        """
-        for job in jobs[:10]:
-            try:
-                jobs = self.wait.until(EC.presence_of_all_elements_located(
-                    (By.XPATH, "//li[contains(@class, 'occludable-update') and contains(@class, 'scaffold-layout__list-item')]")))
-                self.driver.execute_script("arguments[0].scrollIntoView();", job)
-                time.sleep(1)
-                my_list=[]
-                title= WebDriverWait(job, 10).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, "a.job-card-list__title--link"))).get_attribute("aria-label")
-                my_list.append(title)
-                company = WebDriverWait(job, 10).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR,"div.artdeco-entity-lockup__subtitle"))).text
-                my_list.append(company)
-                location = WebDriverWait(job, 10).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR,"div.artdeco-entity-lockup__caption"))).text
-                link= WebDriverWait(job, 10).until(
-                    EC.presence_of_element_located((By.CSS_SELECTOR, "a.job-card-list__title--link"))).get_attribute("href")
-                
-                loc,type=location.split("(")
-                type=type[:-1]
-                my_list.append(loc)
-                my_list.append(type)
-                my_list.append(link)
-                list_of_jobs.append(my_list)
-            
-            except Exception as e:
-                pass
-        with open ("jobs.csv",mode="w",encoding="utf-8-sig",newline='') as file:
-            writer=csv.writer(file)
-            writer.writerow(["Title","Name of Company","Location","Type","Link"])
-            writer.writerows(list_of_jobs)"""
+        
     def create_DB(self):
         connect=sqlite3.connect("job_DataBase.db")
         cursor=connect.cursor()
@@ -186,6 +166,5 @@ CREATE TABLE IF NOT EXISTS tablejob (
         self.data()
         self.create_DB()
         
-
 
 
