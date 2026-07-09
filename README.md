@@ -91,23 +91,31 @@ yagmail.SMTP(
 ```
 with your Gmail address and Google App Password.
 
-## Setup
 
-1. Install project dependencies
+## Running the Application
+
+### Option 1: Executable Version (Recommended)
+
+Run the following files:
+
+```text
+install_requirements.exe
+linkedin.exe
+```
+
+### Option 2: Source Code
+
+Install dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-
-> Note: If two-factor authentication is enabled on your Google account, you must create a Google App Password before using the email verification feature.
-
-2. Run the application
+Then run:
 
 ```bash
 streamlit run gui.py
 ```
-
 
 ## Disclaimer
 
