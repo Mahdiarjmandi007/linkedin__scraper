@@ -11,5 +11,5 @@ class gmail_verify_code():
     def send(self,email):
         self.eamil=email
         self.code=self.creat_code()
-        yag=yagmail.SMTP("arjmandipython@gmail.com","yydt soiw vyhr izny")
+        yag=yagmail.SMTP("your_email","app_password_from_email")
         yag.send(to=email, subject="Verification Code", contents=f"Your code is: {self.code}")
