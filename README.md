@@ -23,13 +23,13 @@ The application allows users to search for jobs by title and location, collect j
 
 ### Registration Page
 
-![Registration Page](images/home-page.png)
+![Registration Page](image/home-page.png)
 
 Users enter their information and verify their email before starting the search.
 
 ### Data Mining Process
 
-![Mining Page](images/mining-page.png)
+![Mining Page](image/mining-page.png)
 
 The application automatically searches LinkedIn jobs and collects data using Selenium.
 
