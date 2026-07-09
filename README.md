@@ -19,6 +19,20 @@ The application allows users to search for jobs by title and location, collect j
 - Store results in SQLite database
 - Firefox WebDriver automation with Selenium
 
+## Preview
+
+### Registration Page
+
+![Registration Page](images/home-page.png)
+
+Users enter their information and verify their email before starting the search.
+
+### Data Mining Process
+
+![Mining Page](images/mining-page.png)
+
+The application automatically searches LinkedIn jobs and collects data using Selenium.
+
 ## Technologies
 
 - Python
