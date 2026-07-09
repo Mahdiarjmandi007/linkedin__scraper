@@ -1,3 +1,7 @@
+
+![Python](https://img.shields.io/badge/Python-3.x-blue)
+![Selenium](https://img.shields.io/badge/Selenium-Web%20Automation-green)
+![Streamlit](https://img.shields.io/badge/Streamlit-UI-red)
 # LinkedIn Job Scraper
 
 A Python-based application that automates LinkedIn job searches and extracts job listings using Selenium and Streamlit.
